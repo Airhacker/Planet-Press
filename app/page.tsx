@@ -20,25 +20,10 @@ export default function Home() {
   const { isLoading, error, data } = useQuery("allNews", getAllNews);
 
   return (
-    <main>
-      <Navbar />
-      <NewsArticles />
-      <div>
-        <h1>News</h1>
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : data ? (
-          data.articles.map((article, key) => {
-            return (
-              <div key={key}>
-                <p>{article.title}</p>
-                <img src={article.urlToImage} alt="" />
-              </div>
-            );
-          })
-        ) : (
-          <p>no data found</p>
-        )}
+    <main className="w-screen h-full bg-white">
+      <div className="w-11/12 m-auto ">
+        <Navbar />
+        <NewsArticles />
       </div>
     </main>
   );
