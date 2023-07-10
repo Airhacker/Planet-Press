@@ -7,7 +7,7 @@ import { useQuery } from "react-query";
 interface NewsArticlesProps {}
 
 const allNewsURL =
-  "https://newsapi.org/v2/top-headlines?category=technology&language=en&apiKey=59f46af578054126b39c442dfb931caa";
+  "https://newsapi.org/v2/top-headlines?country=us&category=technology&language=en&apiKey=59f46af578054126b39c442dfb931caa";
 
 const getAllNews = async () => {
   const response = await axios.get(allNewsURL);
@@ -28,9 +28,9 @@ const NewsArticles: FC<NewsArticlesProps> = ({}) => {
           return (
             <div
               key={key}
-              className="flex flex-col gap-2 p-2 border-2 border-black"
+              className="flex flex-col gap-2 p-2 border-2 border-black rounded-md md:flex-row"
             >
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between md:hidden">
                 {/* Article Source */}
                 <span className="p-2 text-xs border border-black">
                   {article.source.name}
@@ -45,24 +45,34 @@ const NewsArticles: FC<NewsArticlesProps> = ({}) => {
               </div>
 
               {/* Article Image */}
-              <img src={article.urlToImage} alt="" />
+              <div className="flex flex-1">
+                <img
+                  className="object-cover rounded-md"
+                  src={article.urlToImage}
+                  alt=""
+                />
+              </div>
 
-              {/* Article Title */}
-              <p className="font-semibold">{article.title}</p>
+              <div className="flex flex-col flex-1 h-full md:order-first">
+                {/* Article Title */}
+                <p className="font-semibold">{article.title}</p>
 
-              <hr className="border" />
+                <hr className="border" />
 
-              {/* Article Description */}
-              <p className="text-sm">{article.description}</p>
+                {/* Article Description */}
+                <p className="text-sm">{article.description}</p>
 
-              {/* Article URL */}
-              <a
-                target="_blank"
-                className="text-sm text-blue-500"
-                href={article.url}
-              >
-                Read more...
-              </a>
+                {/* Article URL */}
+                <div>
+                  <a
+                    target="_blank"
+                    className="text-sm text-blue-500 "
+                    href={article.url}
+                  >
+                    Read more...
+                  </a>
+                </div>
+              </div>
             </div>
           );
         })
