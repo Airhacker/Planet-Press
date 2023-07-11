@@ -3,6 +3,8 @@
 import type { FC } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
+import { FiChevronRight } from "react-icons/fi";
+import { spawn } from "child_process";
 
 interface NewsArticlesProps {}
 
@@ -28,32 +30,32 @@ const NewsArticles: FC<NewsArticlesProps> = ({}) => {
           return (
             <div
               key={key}
-              className="flex flex-col gap-2 p-2 border-2 border-black rounded-md md:flex-row"
+              className="flex flex-col gap-4 p-4 rounded-lg shadow-md md:flex-row"
             >
+              {/* Article Source and Author */}
               <div className="flex items-center justify-between md:hidden">
                 {/* Article Source */}
-                <span className="p-2 text-xs border border-black">
+                <span className="p-2 text-xs bg-gray-300 rounded-lg w-fit ">
                   {article.source.name}
                 </span>
-
-                {/* Article Author */}
-                {article.author ? (
-                  <span className="p-2 text-xs border border-black">
-                    {article.author}
-                  </span>
-                ) : null}
               </div>
 
               {/* Article Image */}
               <div className="flex flex-1">
                 <img
-                  className="object-cover rounded-md"
+                  className="object-cover w-full rounded-md"
                   src={article.urlToImage}
                   alt=""
                 />
               </div>
 
-              <div className="flex flex-col flex-1 h-full md:order-first">
+              {/* Article Description and Title */}
+              <div className="flex flex-col flex-1 h-full gap-4 md:order-first">
+                {/* Article Source */}
+                <span className="hidden p-2 text-xs bg-gray-300 rounded-lg w-fit md:visible">
+                  {article.source.name}
+                </span>
+
                 {/* Article Title */}
                 <p className="font-semibold">{article.title}</p>
 
@@ -63,13 +65,23 @@ const NewsArticles: FC<NewsArticlesProps> = ({}) => {
                 <p className="text-sm">{article.description}</p>
 
                 {/* Article URL */}
-                <div>
+                <div className="flex content-center justify-between">
+                  {/* Article Author */}
+                  {article.author ? (
+                    <span className="p-2 text-xs text-gray-400 rounded-lg w-fit">
+                      By {article.author}
+                    </span>
+                  ) : (
+                    <span></span>
+                  )}
+
                   <a
                     target="_blank"
-                    className="text-sm text-blue-500 "
+                    className="flex items-center justify-center gap-2 p-2 text-xs text-white bg-blue-600 rounded-lg w-fit"
                     href={article.url}
                   >
-                    Read more...
+                    Read more
+                    <FiChevronRight />
                   </a>
                 </div>
               </div>
@@ -83,22 +95,3 @@ const NewsArticles: FC<NewsArticlesProps> = ({}) => {
   );
 };
 export default NewsArticles;
-
-{
-  /* <div>
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : data ? (
-          data.articles.map((article, key) => {
-            return (
-              <div key={key}>
-                <p>{article.title}</p>
-                <img src={article.urlToImage} alt="" />
-              </div>
-            );
-          })
-        ) : (
-          <p>no data found</p>
-        )}
-      </div> */
-}
