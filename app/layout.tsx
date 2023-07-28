@@ -5,8 +5,8 @@ import { ReactQueryProvider } from "./ReactQueryProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Planet Press ",
-  description: "App to see news from different counties",
+  title: "Tech Press ",
+  description: "Your daily dose of tech news",
 };
 
 export default function RootLayout({ children }) {
